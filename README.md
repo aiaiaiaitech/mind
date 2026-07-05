@@ -42,7 +42,7 @@ archive/
 ## Categories
 
 ### identity
-ф
+
 Stable information describing the owner.
 
 Examples:
