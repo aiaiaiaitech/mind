@@ -33,7 +33,7 @@ Every AI assistant should consume the same repository.
 ```
 identity/
 knowledge/
-systems/
+system/
 projects/
 state/
 archive/
