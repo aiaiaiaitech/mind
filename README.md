@@ -9,6 +9,16 @@ This repository stores long-term knowledge, stable preferences, specifications, 
 
 The goal is to provide one canonical knowledge base that can be consumed by multiple AI systems instead of duplicating prompts or instructions across different platforms.
 
+Create a vendor-independent personal knowledge repository that becomes the single source of truth for multiple AI systems (ChatGPT, Claude Code, GitHub Copilot, Cursor, Grok, Gemini, etc.), instead of duplicating prompts and instructions across different platforms.
+
+## Core Idea
+
+Move from prompt engineering to context engineering.
+
+Instead of storing knowledge inside individual AI clients, maintain one structured Git repository containing stable knowledge, specifications, and project context.
+
+Every AI assistant should consume the same repository.
+
 ## Principles
 
 - One source of truth.
@@ -23,7 +33,7 @@ The goal is to provide one canonical knowledge base that can be consumed by mult
 ```
 identity/
 knowledge/
-systems/
+system/
 projects/
 state/
 archive/

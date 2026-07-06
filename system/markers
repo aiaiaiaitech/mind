@@ -1,0 +1,303 @@
+# Markers Specification
+
+Version: 1.0
+
+---
+
+# Purpose
+
+Markers are a lightweight semantic classification system used throughout the repository, social media, documentation and personal workflows.
+
+The system separates **meaning** from **representation**.
+
+A marker defines **what something is**, while its representation defines **how it is displayed**.
+
+---
+
+# Design Principles
+
+The marker system should always remain:
+
+- semantic
+- compact
+- language-independent
+- hierarchy-aware
+- visually consistent
+- extensible
+
+Representations may evolve.
+
+Semantics should remain stable.
+
+---
+
+# Hierarchy
+
+The system currently consists of two semantic levels.
+
+## Level 1
+
+Root domains.
+
+Current canonical markers:
+
+```
+think
+proc
+notes
+other
+```
+
+Canonical order:
+
+```
+think → proc → notes → other
+```
+
+A level-1 marker:
+
+- represents an independent semantic domain;
+- cannot belong to another marker;
+- cannot be combined with another level-1 marker.
+
+Invalid:
+
+```
+[think][notes]
+[proc][other]
+```
+
+---
+
+## Level 2
+
+Context markers.
+
+A level-2 marker always belongs to exactly one level-1 marker.
+
+Example:
+
+```
+proc
+├── release
+├── evo
+```
+
+A level-2 marker has no meaning outside its parent.
+
+---
+
+# Marker Identity
+
+Every marker consists of two identities.
+
+## Canonical name
+
+The complete semantic name.
+
+Examples:
+
+```
+process
+thinking
+notes
+other
+release
+```
+
+---
+
+## Short name
+
+A compact identifier.
+
+Rules:
+
+- maximum 5 characters;
+- if abbreviated, it should preferably end with a consonant;
+- manually assigned to preserve readability.
+
+Examples:
+
+| Canonical | Short |
+|-----------|-------|
+| process | proc |
+| thinking | think |
+| notes | notes |
+| other | other |
+
+The short name becomes the identifier used by the system.
+
+---
+
+# Representations
+
+A representation is not a marker.
+
+The same marker may appear as:
+
+- repository category;
+- sticker;
+- Instagram Highlight;
+- documentation label;
+- color identity;
+- future UI components.
+
+Changing a representation must never change the semantic meaning.
+
+---
+
+# Repository Representation
+
+Repository paths use marker identifiers.
+
+Examples:
+
+```
+think/
+proc/
+notes/
+other/
+```
+
+---
+
+# Sticker Representation
+
+Sticker syntax:
+
+```
+[level1.][level2]
+```
+
+Examples:
+
+```
+[proc.]
+```
+
+```
+[proc.][release]
+```
+
+Rules:
+
+- the first marker always uses its short identifier;
+- the trailing dot belongs to the sticker representation;
+- the dot is **not** part of the marker itself;
+- the dot visually indicates continuation;
+- the second marker is written using its canonical name;
+- the second marker never ends with a dot.
+
+Correct:
+
+```
+[proc.]
+[proc.][release]
+```
+
+Incorrect:
+
+```
+[process.]
+[proc]
+[proc.][release.]
+```
+
+---
+
+# Categories
+
+Categories always use marker identifiers without brackets.
+
+Examples:
+
+```
+think
+proc
+notes
+other
+```
+
+---
+
+# Localization
+
+Markers may have localized labels.
+
+Example:
+
+```
+proc
+```
+
+↓
+
+```
+процес
+```
+
+Localization changes only presentation.
+
+Canonical identity remains unchanged.
+
+---
+
+# Color System
+
+Each marker owns:
+
+- one primary color;
+- one palette.
+
+Rule:
+
+```
+primary color ∈ palette
+```
+
+Current primary colors:
+
+| Marker | Color |
+|--------|--------|
+| proc | #3F3F3F |
+| notes | #7A7468 |
+| other | #8A7F6A |
+| evo | #4FB3AD |
+
+---
+
+# Stories Sticker Preset
+
+Default specification:
+
+- transparent PNG;
+- flat design;
+- no shadows;
+- no gradients;
+- Söhne Medium;
+- lowercase;
+- white text;
+- height: 56 px;
+- dynamic width;
+- border radius: 12 px.
+
+Placement:
+
+- bottom-left;
+- 24–32 px from the left edge;
+- approximately 1–1.5 sticker heights above the bottom edge.
+
+---
+
+# Invariants
+
+The following rules should never change.
+
+- Meaning is independent from representation.
+- Every level-2 marker has exactly one parent.
+- Level-1 markers define semantic domains.
+- Level-2 markers define context inside a domain.
+- Repository, stickers and UI are different representations of the same marker.
+- The trailing dot belongs only to the sticker representation.
+- Marker identifiers should remain short, stable and human-readable.
