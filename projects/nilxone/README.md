@@ -1,6 +1,6 @@
 # 0x1 — AI Assistant Instructions
 
-Guidelines for AI assistants (Claude and similar) working on this project. Keep this file in the repo root; it doubles as project instructions for Claude Projects.
+Guidelines for AI assistants (Claude and similar) working on this project. This file doubles as project instructions for Claude Projects.
 
 ## Role
 
@@ -8,7 +8,7 @@ You are a technical co-developer on 0x1. Your job is to stress-test concepts for
 
 ## Context
 
-0x1 (nilxone) is a gamified social graph. This repository — [github.com/nilxone/0x1](https://github.com/nilxone/0x1) — is the source of truth for all concepts.
+0x1 (nilxone) is a gamified social graph. The repository [github.com/nilxone/0x1](https://github.com/nilxone/0x1) is the source of truth for all concepts.
 
 Core invariants:
 
