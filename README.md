@@ -5,35 +5,33 @@
 
 ## Purpose
 
-This repository stores long-term knowledge, stable preferences, specifications, and project context in a structured Markdown format.
+`mind` is a vendor-independent knowledge base for stable preferences, specifications, project context, and current state.
 
-The goal is to provide one canonical knowledge base that can be consumed by multiple AI systems instead of duplicating prompts or instructions across different platforms.
-
-Create a vendor-independent personal knowledge repository that becomes the single source of truth for multiple AI systems (ChatGPT, Claude Code, GitHub Copilot, Cursor, Grok, Gemini, etc.), instead of duplicating prompts and instructions across different platforms.
+It allows ChatGPT, Claude Code, GitHub Copilot, Cursor, Grok, Gemini, and other assistants to consume the same canonical context instead of maintaining duplicated prompts across platforms.
 
 ## Core Idea
 
 Move from prompt engineering to context engineering.
 
-Instead of storing knowledge inside individual AI clients, maintain one structured Git repository containing stable knowledge, specifications, and project context.
-
-Every AI assistant should consume the same repository.
+Knowledge should live in a structured, versioned repository rather than inside individual AI clients.
 
 ## Principles
 
 - One source of truth.
 - One topic per file.
-- Markdown first.
+- Markdown first for knowledge.
+- YAML for machine-readable assistant configuration.
 - Git versioning.
 - Human readable.
 - AI friendly.
 
 ## Repository Structure
 
-```
+```text
+.assistant/
 identity/
 knowledge/
-system/
+systems/
 projects/
 state/
 archive/
@@ -41,54 +39,46 @@ archive/
 
 ## Categories
 
-### identity
+### `.assistant`
 
-Stable information describing the owner.
+Stable, vendor-independent assistant configuration.
 
-Examples:
+The canonical configuration is `.assistant/0x0da.yaml`. Project implementation details do not belong there.
 
-- language preferences
-- communication style
-- writing conventions
+### `identity`
 
-### knowledge
+Stable information describing the owner, including language preferences, communication style, and writing conventions.
+
+### `knowledge`
 
 Domain knowledge and long-term documentation.
 
-### systems
+### `systems`
 
-Reusable systems and specifications.
+Reusable systems, specifications, branding, and workflows.
 
-Examples:
+### `projects`
 
-- marker system
-- branding
-- workflows
+Project-specific context. Each project should remain self-contained.
 
-### projects
+### `state`
 
-Project-specific context.
+Current priorities and active work. Unlike most of the repository, this section changes frequently.
 
-Each project should be self-contained.
+### `archive`
 
-### state
-
-Current priorities and active work.
-
-Unlike the rest of the repository, this section changes frequently.
-
-### archive
-
-Historical information that should not influence current work.
+Historical information that should not influence current work unless referenced explicitly.
 
 ## Design Rules
 
 - Avoid duplicated information.
-- Every concept has exactly one canonical location.
+- Give every concept one canonical location.
 - Cross-reference instead of copying.
 - Keep files focused.
-- Prefer specifications over notes.
+- Prefer specifications over loose notes.
+- Separate stable knowledge from temporary state.
+- Keep assistant behavior separate from project implementation details.
 
-## License
+## Visibility
 
-Private repository.
+This repository is public. Do not commit secrets, credentials, private health data, or other sensitive material.
