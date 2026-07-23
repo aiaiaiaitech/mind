@@ -1,63 +1,41 @@
-version: 1
+schema_version: 1
 
-repository:
+mind:
   name: mind
-  description: Personal AI knowledge repository
+  kind: abstract
+  context_version: 0.1.0
+  owner:
+    type: unspecified
+    id: unspecified
 
-structure:
+contract:
+  canonical_source: required
+  explicit_owner: required
+  versioned_context: required
+  human_readable: required
+  machine_readable: required
+  secrets: forbidden
 
-  identity:
-    description: Stable personal preferences and identity
-    priority: low
+modules:
+  required: []
+  registered: []
+  rules:
+    single_responsibility: required
+    explicit_dependencies: required
+    independently_replaceable: required
+    duplicate_content: forbidden
+    cross_reference: preferred
+    composition_over_inheritance: preferred
 
-  knowledge:
-    description: Long-term knowledge
-    priority: medium
-
-  systems:
-    description: Reusable systems and specifications
-    priority: high
-
-  projects:
-    description: Project-specific documentation
-    priority: highest
-
-  state:
-    description: Current priorities and active context
-    priority: highest
-
-  archive:
-    description: Historical information
-    priority: ignore_unless_requested
-
-rules:
-
-  single_source_of_truth: true
-
-  markdown_only: true
-
-  duplicate_content: forbidden
-
-  cross_reference: preferred
-
-  canonical_files: required
+context:
+  stability:
+    stable: long_lived_contracts
+    transient: current_state
+    archived: ignored_unless_requested
 
 loading:
+  default: []
+  optional: []
 
-  default:
-    - state
-    - projects
-    - systems
-
-  extended:
-    - knowledge
-    - identity
-
-  full:
-    - archive
-
-future:
-
-  context_protocol: planned
-
-  mcp: planned
+validation:
+  schema: schema/mind.schema.json
