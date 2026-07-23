@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/0x0sky/mind/schema/mind.schema.json",
+  "title": "Mind Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mind", "contract", "modules", "context", "loading", "validation"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "mind": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "kind", "context_version", "owner"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "enum": ["abstract", "personal", "organization", "project", "product"] },
+        "context_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "owner": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "id"],
+          "properties": {
+            "type": { "type": "string", "enum": ["unspecified", "person", "organization", "project", "product"] },
+            "id": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "contract": { "type": "object" },
+    "modules": {
+      "type": "object",
+      "required": ["required", "registered", "rules"],
+      "properties": {
+        "required": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "registered": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "rules": { "type": "object" }
+      }
+    },
+    "context": { "type": "object" },
+    "loading": {
+      "type": "object",
+      "required": ["default", "optional"],
+      "properties": {
+        "default": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "optional": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["schema"],
+      "properties": {
+        "schema": { "const": "schema/mind.schema.json" }
+      }
+    }
+  }
+}
