@@ -1,12 +1,12 @@
 schema_version: 1
 
 mind:
-  name: mind
-  kind: abstract
+  name: aiaiaiai-tech-mind
+  kind: organization
   context_version: 0.1.0
   owner:
-    type: unspecified
-    id: unspecified
+    type: organization
+    id: aiaiaiaitech
 
 contract:
   canonical_source: required
@@ -17,8 +17,17 @@ contract:
   secrets: forbidden
 
 modules:
-  required: []
-  registered: []
+  required:
+    - identity
+    - governance
+    - engineering
+    - portfolio
+  registered:
+    - identity
+    - governance
+    - engineering
+    - portfolio
+    - decisions
   rules:
     single_responsibility: required
     explicit_dependencies: required
@@ -34,8 +43,13 @@ context:
     archived: ignored_unless_requested
 
 loading:
-  default: []
-  optional: []
+  default:
+    - identity
+    - governance
+    - engineering
+    - portfolio
+  optional:
+    - decisions
 
 validation:
   schema: schema/mind.schema.json
