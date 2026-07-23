@@ -1,84 +1,66 @@
 # mind
 
-> Personal knowledge repository.
-> Single source of truth for AI assistants.
+> A versioned context repository for humans and AI systems.
 
 ## Purpose
 
-`mind` is a vendor-independent knowledge base for stable preferences, specifications, project context, and current state.
+`mind` is a vendor-independent source of truth for structured context. It defines a small reusable contract that can later specialize into a personal, organization, project, or product mind.
 
-It allows ChatGPT, Claude Code, GitHub Copilot, Cursor, Grok, Gemini, and other assistants to consume the same canonical context instead of maintaining duplicated prompts across platforms.
+The baseline intentionally avoids prescribing domain-specific folders. Concrete implementations compose only the modules they need.
 
-## Core Idea
+## Contract
 
-Move from prompt engineering to context engineering.
+Every compatible mind must:
 
-Knowledge should live in a structured, versioned repository rather than inside individual AI clients.
+- declare an explicit owner and context version;
+- keep one canonical location for each concept;
+- separate stable context from transient state;
+- keep modules focused and independently replaceable;
+- declare module dependencies explicitly;
+- prefer references over duplicated content;
+- remain readable by humans and machines;
+- contain no secrets or private credentials.
 
-## Principles
-
-- One source of truth.
-- One topic per file.
-- Markdown first for knowledge.
-- YAML for machine-readable assistant configuration.
-- Git versioning.
-- Human readable.
-- AI friendly.
-
-## Repository Structure
+## Architecture
 
 ```text
-.assistant/
-identity/
-knowledge/
-systems/
-projects/
-state/
-archive/
+Mind
+├── manifest.yaml
+├── schema/
+│   └── mind.schema.json
+└── modules/
+    └── README.md
 ```
 
-## Categories
+`Mind` is the abstraction. A repository becomes a concrete implementation by composing modules such as identity, assistant policy, governance, engineering, knowledge, systems, or state.
 
-### `.assistant`
+Examples:
 
-Stable, vendor-independent assistant configuration.
+```text
+PersonalMind = Identity + Assistant + Knowledge + Systems + State
+OrganizationMind = Identity + Governance + Engineering + Portfolio + Decisions
+```
 
-The canonical configuration is `.assistant/0x0da.yaml`. Project implementation details do not belong there.
+The baseline does not require these modules and does not define their internal content.
 
-### `identity`
+## Design Principles
 
-Stable information describing the owner, including language preferences, communication style, and writing conventions.
+- **Single Responsibility:** one purpose per module and one topic per file.
+- **Open/Closed:** new mind types are added through modules, not by changing the baseline contract.
+- **Liskov Substitution:** every concrete mind satisfies the same manifest and validation invariants.
+- **Interface Segregation:** consumers load only the modules they need.
+- **Dependency Inversion:** concrete modules depend on the baseline contract; the baseline never depends on concrete modules.
+- Composition is preferred over inheritance.
+- Contracts are preferred over conventions that cannot be validated.
 
-### `knowledge`
+## Lifecycle
 
-Domain knowledge and long-term documentation.
-
-### `systems`
-
-Reusable systems, specifications, branding, and workflows.
-
-### `projects`
-
-Project-specific context. Each project should remain self-contained.
-
-### `state`
-
-Current priorities and active work. Unlike most of the repository, this section changes frequently.
-
-### `archive`
-
-Historical information that should not influence current work unless referenced explicitly.
-
-## Design Rules
-
-- Avoid duplicated information.
-- Give every concept one canonical location.
-- Cross-reference instead of copying.
-- Keep files focused.
-- Prefer specifications over loose notes.
-- Separate stable knowledge from temporary state.
-- Keep assistant behavior separate from project implementation details.
+1. Build and validate a neutral baseline snapshot.
+2. Tag and release that snapshot.
+3. Fork it into another account or organization.
+4. Evolve each repository independently as a concrete mind.
+5. Share later neutral improvements only through explicit commits or versioned specifications.
 
 ## Visibility
 
-This repository is public. Do not commit secrets, credentials, private health data, or other sensitive material.
+This repository may be public. Never commit secrets, credentials, private health data, access tokens, or other sensitive material.
