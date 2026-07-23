@@ -1,66 +1,57 @@
-# mind
+# aiaiaiai tech. mind
 
-> A versioned context repository for humans and AI systems.
+> A versioned organization context repository for humans and AI systems.
+
+This repository is an integration fork of the vendor-independent [`mind`](https://github.com/0x0sky/mind) baseline. It specializes the baseline contract as the organization mind for `aiaiaiaitech` while keeping reusable framework concerns upstream.
 
 ## Purpose
 
-`mind` is a vendor-independent source of truth for structured context. It defines a small reusable contract that can later specialize into a personal, organization, project, or product mind.
+The repository is the canonical source for stable organization-wide context that should be shared across projects without being duplicated in every repository.
 
-The baseline intentionally avoids prescribing domain-specific folders. Concrete implementations compose only the modules they need.
+It intentionally excludes secrets, private personal context, repository-local implementation details, and transient operational state.
 
-## Contract
-
-Every compatible mind must:
-
-- declare an explicit owner and context version;
-- keep one canonical location for each concept;
-- separate stable context from transient state;
-- keep modules focused and independently replaceable;
-- declare module dependencies explicitly;
-- prefer references over duplicated content;
-- remain readable by humans and machines;
-- contain no secrets or private credentials.
-
-## Architecture
+## Composition
 
 ```text
-Mind
+OrganizationMind
 ├── manifest.yaml
 ├── schema/
 │   └── mind.schema.json
 └── modules/
-    └── README.md
+    ├── identity/
+    ├── governance/
+    ├── engineering/
+    ├── portfolio/
+    └── decisions/
 ```
 
-`Mind` is the abstraction. A repository becomes a concrete implementation by composing modules such as identity, assistant policy, governance, engineering, knowledge, systems, or state.
+Default modules:
 
-Examples:
+- `identity` — canonical public organization identity and naming;
+- `governance` — durable ownership, review, and publication rules;
+- `engineering` — organization-wide engineering contracts;
+- `portfolio` — stable project and product index.
 
-```text
-PersonalMind = Identity + Assistant + Knowledge + Systems + State
-OrganizationMind = Identity + Governance + Engineering + Portfolio + Decisions
-```
+Optional module:
 
-The baseline does not require these modules and does not define their internal content.
+- `decisions` — cross-repository decision records.
 
-## Design Principles
+## Integration model
 
-- **Single Responsibility:** one purpose per module and one topic per file.
-- **Open/Closed:** new mind types are added through modules, not by changing the baseline contract.
-- **Liskov Substitution:** every concrete mind satisfies the same manifest and validation invariants.
-- **Interface Segregation:** consumers load only the modules they need.
-- **Dependency Inversion:** concrete modules depend on the baseline contract; the baseline never depends on concrete modules.
-- Composition is preferred over inheritance.
-- Contracts are preferred over conventions that cannot be validated.
+- `0x0sky/mind` remains the neutral upstream contract.
+- `aiaiaiaitech/mind` evolves independently as a concrete organization mind.
+- Neutral improvements may be contributed upstream as isolated commits or versioned contract changes.
+- Organization-specific content must not be pushed upstream.
+- Repository-specific implementation remains canonical in the owning repository and is referenced from here.
 
-## Lifecycle
+## Change policy
 
-1. Build and validate a neutral baseline snapshot.
-2. Tag and release that snapshot.
-3. Fork it into another account or organization.
-4. Evolve each repository independently as a concrete mind.
-5. Share later neutral improvements only through explicit commits or versioned specifications.
+1. Work on a focused branch.
+2. Validate `manifest.yaml` against `schema/mind.schema.json`.
+3. Open a draft pull request.
+4. Require green checks before publication.
+5. Merge or release only after explicit review and authorization.
 
 ## Visibility
 
-This repository may be public. Never commit secrets, credentials, private health data, access tokens, or other sensitive material.
+This repository may be public. Never commit secrets, credentials, private health data, access tokens, private personal profiles, or transient infrastructure state.
